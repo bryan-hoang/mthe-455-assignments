@@ -25,12 +25,65 @@
     \begin{parts}
       \part{}
       \begin{solution}
-        42.
+        Given the definition of T and the constraints of the experiment, the pmf of
+        \(T\) can be derived as
+        \begin{equation*}
+          p_{T}(t) = \begin{cases}
+            (p + q)^{t-1}r & \text{if } t \geq 1, \\
+            0              & \text{otherwise},
+          \end{cases}
+        \end{equation*}
+        Then the expected value of \(T\) is
+        \begin{align*}
+          \expect{T} &= \sum_{t=0}^{\infty} tp_{T}(t)       \\
+                     &= \sum_{t=0}^{\infty} t(p + q)^{t-1}r
+        \end{align*}
+        Let \(x = p+q\). Then we have
+        \begin{equation}\label{eq:integral}
+          \int \expect{T} \dd{x} = \int \sum_{t=0}^{\infty} tx^{t-1}r \dd{x}
+        \end{equation}
+        \begin{claim}
+          The series \(\sum_{t=1}^{\infty} t(x)^{t-1}r\) converges uniformly.
+        \end{claim}
+        \begin{proof}
+          \begin{align*}
+            L &= \lim_{t \to \infty} \frac{(t+1)(x)^{t}r}{t(x)^{t-1}r}                                   \\
+              &= \lim_{t \to \infty} \frac{t + 1}{t}x                                                    \\
+              &= x \lim_{t \to \infty} \frac{t + 1}{t}                                                   \\
+              &= x                                                                                       \\
+              &< 1                                                     & &\text{by the definition of } x
+          \end{align*}
+          Then by the ratio test, \(L < 1\) implies that the series converges uniformly.
+        \end{proof}
+
+        \newpage
+        Then~\eqref{eq:integral} becomes
+
+        \begin{align*}
+          \int \expect{T} \dd{x}                    &= \sum_{t=0}^{\infty} \int tx^{t-1}r \dd{x} & &\because \text{the series converges uniformly} \\
+                                                    &= r\sum_{t=0}^{\infty} x^{t}                                                                  \\
+                                                    &= r \cdot \frac{1}{1-x}                     & &\because x < 1                                 \\
+          \Rightarrow \dv{x} \int \expect{T} \dd{x} &= r \cdot \dv{x} \frac{1}{1-x}                                                                \\
+          \expect{T}                                &= r \cdot \frac{1}{(1-x)^{2}}                                                                 \\
+                                                    &= \frac{r}{r^2}                             & &\text{by the definition of } x                 \\
+          \alignedbox{                              &= \frac{1}{r}}
+        \end{align*}
       \end{solution}
 
       \part{}
       \begin{solution}
-        42.
+        Let \(X\) denote the number of \(\square{}\)'s that appear during time \(T\).
+        Then the conditional probability of \(X\) given \(T\) is
+        \begin{equation*}
+          P(X=0|T=t) = p^{t-1}r
+        \end{equation*}
+        Then the probability that we want is
+        \begin{align*}
+          P(X=0)       &= \sum_{t=1}^{\infty} P(X=0|T=t)                   \\
+                       &= \sum_{t=1}^{\infty} p^{t-1}r                     \\
+                       &= r\sum_{t=0}^{\infty} p^{t-1}                     \\
+          \alignedbox{ &= \frac{r}{1-p}}                 & &\because p < 1
+        \end{align*}
       \end{solution}
     \end{parts}
   \end{questions}

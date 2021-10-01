@@ -25,12 +25,30 @@
     \begin{parts}
       \part{}
       \begin{solution}
-        42.
+        Let \(T_{i}\) be the time to collect the \(i\)-th coupon after \(i-1\) coupons
+        have been collected. Then \(T = \sum_{i=1}^{n} T_{i}\). Observe that the
+        probability of collecting a new coupon is \(p_{i} = \frac{n-(i-1)}{n} =
+        \frac{n-i+1}{n}\). Therefore, \(T_{i}\) has a geometric distribution with
+        expectation \(\frac{1}{p_{i}} = \frac{n}{n-i+1}\). By the linearity of
+        expectations, we have:
+        \begin{align*}
+          \expect{T}   &= \expect{\sum_{i=1}^{n} T_{i}}  \\
+                       &= \sum_{i=1}^{n} \expect{T_{i}}  \\
+                       &= \sum_{i=1}^{n} \frac{n}{n-i+1} \\
+                       &= n \sum_{i=1}^{n} \frac{1}{n}   \\
+          \alignedbox{ &= n \cdot H_{n}}
+        \end{align*}
+        where \(H_{n}\) is the \(n\)-th harmonic number.
       \end{solution}
 
       \part{}
       \begin{solution}
-        42.
+        Let X be the numbers of times the coupon \(c_{1}\) appears in time
+        \(T\). Then \(X\sim\mathrm{Binomial}(\frac{1}{n},T)\). Thus the
+        probability we're interested in is
+        \begin{equation*}
+          \boxed{P(X=1) = \binom{T}{1} \frac{1}{n} \left(1-\frac{1}{n}\right)^{T-1}}
+        \end{equation*}
       \end{solution}
     \end{parts}
   \end{questions}

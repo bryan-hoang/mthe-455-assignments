@@ -25,17 +25,43 @@
     \begin{parts}
       \part{}
       \begin{solution}
-        42.
+        \begin{proof}
+          \begin{align*}
+             &\phantomeq{} \expect{g(X,Y)|Y=y}                                                                             \\
+             &= \sum_{a \in S_{X}} \sum_{b \in S_{Y}} g(a,b) P(X=a,Y=b|Y=y)                                                \\
+             &= \sum_{a \in S_{X}} g(a,b) P(X=a,Y=y|Y=y)                    & &\because P(X=a,Y=b|Y=y)=0, \forall b \neq y \\
+             &= \sum_{a \in S_{X}} g(a,y) P(X=a|Y=y)                                                                       \\
+             &= \expect{g(X,y)|Y=y}
+          \end{align*}
+        \end{proof}
       \end{solution}
 
       \part{}
       \begin{solution}
-        42.
+        \begin{proof}
+          \begin{align*}
+             &\phantomeq{} \expect{XY|Y=y}                                                                            \\
+             &= \sum_{a \in S_{X}} \sum_{b \in S_{Y}} abP(X=a,Y=b|Y=y)                                                \\
+             &= \sum_{a \in S_{X}} ayP(X=a,Y=y|Y=y)                    & &\because P(X=a,Y=b|Y=y)=0, \forall b \neq y \\
+             &= y\sum_{a \in S_{X}} aP(X=a|Y=y)                                                                       \\
+             &= y\expect{X|Y=y}
+          \end{align*}
+        \end{proof}
       \end{solution}
+
+      \newpage
 
       \part{}
       \begin{solution}
-        42.
+        \begin{proof}
+          \begin{align*}
+             &\phantomeq{} \expect{Y\expect{X|Y}}                                      \\
+             &= \sum_{b \in S_{Y}} b\left(\sum_{a \in S_{X}} aP(X=a|Y=b)\right) P(Y=b) \\
+             &= \sum_{b \in S_{Y}} \left(\sum_{a \in S_{X}} abP(X=a|Y=b)P(Y=b)\right)  \\
+             &= \sum_{a \in S_{X}} \sum_{b \in S_{Y}} abP(X=a,Y=b)                     \\
+             &= \expect{X|Y}
+          \end{align*}
+        \end{proof}
       \end{solution}
     \end{parts}
   \end{questions}
