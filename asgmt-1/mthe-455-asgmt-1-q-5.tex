@@ -24,7 +24,22 @@
     \question{}
     \begin{solution}
       \begin{proof}
-        42.
+        For \(n \in \integers_{\ge 1}\), let \(A_{n} = \{X < s_{n}\}\). Since \(\{s_{n}:n\in\integers_{\ge 1}\}\) is an increasing sequence, then it follows that \(\{A_{n}:n \in \integers_{\ge 1}\}\) is an increasing sequence of events.
+        \begin{claim}
+          \(\cup_{n=1}^{\infty}A_n = \{X < s\}\)
+        \end{claim}
+        \begin{proof}
+          For some \(x \in \cup_{n=1}^{\infty}A_n\), then \(\exists n \in \integers_{\ge 1}\) such that \(x < s_{n}\). But we also have \(s_{n} < s\), which implies that \(x < s\), and so \(x \in \{X < s\}\)
+
+          For some \(x \in \{X < s\}\), then \(x < s \Rightarrow s-x>0\). Let \(\varepsilon = s-x\). Since \(s = \lim_{n \to \infty}s_{n}\), then \(\exists N \in \integers_{\ge 1}\) such that \(|s-s_{N}|<\varepsilon\). Then \(x < s_{N}\), so \(x \in \cup_{n=1}^{\infty}A_n\)
+        \end{proof}
+        It follows that
+        \begin{align*}
+          \lim_{n \to \infty} F(s_{n}) &= \lim_{n \to \infty} P(X \le s_{n})                                            \\
+                                       &= \lim_{n \to \infty} P(A_{n})                                                  \\
+                                       &= P(\lim_{n \to \infty} A_{n})       & &\text{by the continuity of probability} \\
+                                       &= P(X < s)                           & &\text{by the previous claim}
+        \end{align*}
       \end{proof}
     \end{solution}
   \end{questions}
