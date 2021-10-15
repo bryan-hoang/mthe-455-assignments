@@ -11,7 +11,7 @@
   assignmentname={Assignment \assignmentnumber},
   studentnumber=20053722,
   name={Bryan Hoang},
-  draft,
+  % final,
 ]{
   ltxanswer%
 }
@@ -25,7 +25,65 @@
     \question[7]{}
     \begin{solution}
       \begin{proof}
-        42.
+        The probability we want to show is equivalent to the hitting probability of the complement of the state 0.\ i.e., for all \(n \ge 0\)
+        \begin{equation}\label{eq:probability}
+          P(X_{n} \ge 1 | X_{0} = 1) = 1 - P(X_{n} = 0 | X_{0} = 1)
+        \end{equation}
+        With \(\{0\}\) being the subset of events of interest, then \(P(X_{n} = 0 | X_{0} = 1) = h_{1}^{\{0\}}\). We also have that \((h_{i}^{\{0\}} : i \ge 0)\) is the minimal non-negative solution to the following
+        \begin{align*}
+          h_{i} &= 1                           & &\text{if } i = 0,   \\
+          h_{i} &= p_{i}h_{i+1} + q_{i}h_{i-1} & &\text{if } i \ge 0.
+        \end{align*}
+        Here, for simplicity we omit the superscript, and write
+        \begin{equation}\label{eq:transition-probabilities}
+          \begin{aligned}
+            p_{i} & = p_{i,i+1} \\
+            q_{i} & = p_{i,i-1}
+          \end{aligned}
+        \end{equation}
+        Rearrange terms: since \(p_{i} + q_{i} = 1\), for \(i \ge 1\),
+        \begin{equation*}
+          p_{i}(h_{i}-h_{i+1}) = q_{i}(h_{i-1}-h_{i})
+        \end{equation*}
+        For \(i \ge 0\), define \(u_{i} = h_{i-1} - h_{i}\). By iteration, for \(i \ge 1\),
+        \begin{equation}\label{eq:iteration}
+          u_{i+1} = \frac{q_{i}}{p_{i}}u_{i} = \left(\prod_{j=1}^{i} \frac{q_{j}}{p_{j}}\right)u_{1} = \gamma_{i}u_{1},
+        \end{equation}
+        where the final equality defines \(\gamma_{i}\). Since \(\sum_{j=1}^{i} u_{i}\) is a telescoping sum, we have
+        \begin{equation}\label{eq:telescoping-sum}
+          \sum_{j=1}^{i} u_{i} = h_{0} - h_{i}
+        \end{equation}
+        Combining the results of~\eqref{eq:iteration} and~\eqref{eq:telescoping-sum} yields
+        \begin{equation*}
+          h_{i} = 1 - A\sum_{k = 0}^{i-1} \gamma_{k}
+        \end{equation*}
+        where \(A = u_{1}\) and \(\gamma_{0} = 1\). At this point \(A\) remains  to be determined. In the case \(\sum_{i=0}^{\infty} \gamma_{i} = \infty{}\), the restriction \(0 \le h_{i} \le 1\) forces \(A=0\) and \(h_{i} = 1\) for all \(i\). But if \(\sum_{i=0}^{\infty} \gamma_{i} \le \infty{}\) then we can take \(A > 0\) so long as
+        \begin{equation*}
+          1 - A\sum_{k = 0}^{i-1} \gamma_{k} \ge 0, \quad \forall i.
+        \end{equation*}
+        Thus, the minimal non-negative solution occurs when \(A = (\sum_{i=0}^{\infty} \gamma_{i})^{-1}\) and then
+        \begin{equation}\label{eq:hitting-probability}
+          h_{i} = \frac{\sum_{j=i}^{\infty} \gamma_{j}}{\sum_{j=0}^{\infty} \gamma_{j}}
+        \end{equation}
+        To simplify~\eqref{eq:hitting-probability}, note that \(\gamma_{i}\) for \(i \ge 0\) can be rewritten as
+        \begin{align*}
+          \gamma_{i} &= \prod_{j=1}^{i} \frac{q_{j}}{p_{j}}                                                                                                                      \\
+                     &= \prod_{j=1}^{i} \frac{p_{j,j-1}}{p_{j,j+1}}                                    & &\text{by~\eqref{eq:transition-probabilities}}                          \\
+                     &= \prod_{j=1}^{i} \frac{\cancel{p_{j,j-1}}}{(\frac{j+1}{j})^2\cancel{p_{j,j-1}}} & &\text{by the definition of the transition probabilities}               \\
+                     &= \prod_{j=1}^{i} \frac{j^2}{(j+1)^2}                                                                                                                      \\
+                     &= \frac{1}{(i+1)^2}                                                              & &\because \text{it's a telescoping product.}\numberthis\label{eq:gamma}
+        \end{align*}
+        Then by combining~\eqref{eq:probability},~\eqref{eq:hitting-probability}, and~\eqref{eq:gamma}, we have
+        \begin{align*}
+          P(X_{n} \ge 1 | X_{0} = 1) &= 1 - P(X_{n} = 0 | X_{0} = 1)                                                                                  \\
+                                     &= 1 - h_{1}                                                                                                     \\
+                                     &= 1 - \frac{\sum_{j=1}^{\infty} \gamma_{j}}{\sum_{j=0}^{\infty} \gamma_{j}}                                     \\
+                                     &= 1 - \frac{\sum_{j=1}^{\infty} \frac{1}{(j+1)^{2}}}{\sum_{j=0}^{\infty} \frac{1}{(j+1)^{2}}}                   \\
+                                     &= 1 - \frac{\sum_{n=1}^{\infty} \frac{1}{n^{2}} - 1}{\sum_{n=1}^{\infty} \frac{1}{n^{2}}}                       \\
+                                     &= 1 - \frac{\frac{\pi^{2}}{6} - 1}{\frac{\pi^{2}}{6}}                                                           \\
+                                     &= \cancel{1} - \cancelto{\cancel{1}}{\frac{\frac{\pi^{2}}{6}}{\frac{\pi^{2}}{6}}} + \frac{1}{\frac{\pi^{2}}{6}} \\
+                                     &= \frac{6}{\pi^{2}}
+        \end{align*}
       \end{proof}
     \end{solution}
   \end{questions}
