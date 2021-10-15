@@ -24,7 +24,31 @@
     \addtocounter{question}{-1}
     \question[5]{}
     \begin{solution}
-      42.
+      Let \(X_{n}\) be the vertex the particle is on at step \(n\). Then \(\{X_{n} : n \ge 0\}\) is a Markov chain with the state space \(S=\{A,B,C,D,E\}\) and the transition matrix
+      \begin{equation*}
+        P = \begin{bmatrix}
+          0           & \frac{1}{2} & \frac{1}{2} & 0           & 0           \\
+          \frac{1}{2} & 0           & \frac{1}{2} & 0           & 0           \\
+          \frac{1}{4} & \frac{1}{4} & 0           & \frac{1}{4} & \frac{1}{4} \\
+          0           & 0           & \frac{1}{2} & 0           & \frac{1}{2} \\
+          0           & 0           & \frac{1}{2} & \frac{1}{2} & 0
+        \end{bmatrix}
+      \end{equation*}
+      Denote by \(F\) the event that the Markov chain hits the state \(E\) before it hits \(B\), and denote
+      \begin{equation*}
+        f_{i} = \mathbb{P}_{i}(F), \qquad \text{for } i = A, B, C, D, E.
+      \end{equation*}
+      Then conditional on \(X_{0}\), we have
+      \begin{align*}
+        f_{A} &= \frac{1}{2}f_{B} + \frac{1}{2}f_{C}                                       \\
+        f_{B} &= 0                                                                         \\
+        f_{C} &= \frac{1}{4}f_{A} + \frac{1}{4}f_{B} + \frac{1}{4}f_{D} + \frac{1}{4}f_{E} \\
+        f_{D} &= \frac{1}{2}f_{C} + \frac{1}{2}f_{E}                                       \\
+        f_{E} &= 1
+      \end{align*}
+      Thus, by solving the system of equations, we have \(f_{A}=\frac{1}{4}\), \(f_{C}=\frac{1}{2}\), and \(f_{D}=\frac{3}{4}\).
+
+      In particular, if \(X_{0}=A\), the probability that the particle hits the state \(E\) before it hits \(B\) is \fbox{\(\frac{1}{4}\)}.
     \end{solution}
   \end{questions}
 \end{document}
