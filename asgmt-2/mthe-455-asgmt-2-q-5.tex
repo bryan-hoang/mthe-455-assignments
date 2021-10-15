@@ -27,14 +27,53 @@
       \part{}
       \begin{solution}
         \begin{proof}
-          42.
+          Let \(Y=F(X)\) with the CDF \(F_{Y}\) and let \(F_{U}\) be the CDF of a \(U(0,1)\) random variable, where
+          \begin{equation*}
+            F_{U}(u) = \begin{cases}
+              0 & \text{for } u < 0,        \\
+              x & \text{for } u \in [0, 1], \\
+              1 & \text{for } u > 1,
+            \end{cases}
+          \end{equation*}
+          It is sufficient to show that \(Y \sim U(0,1)\) by showing that \(F_{Y} = F_{U}\).
+
+          For \(y < 0\), \(F_{Y}(y) = P(F(X) \le y) = P(F(X) \le 0) = 0\) by the definition of a CDF.\@
+
+          For \(y > 1\), \(F_{Y}(y) = P(F(X) \le y) = P(F(X) \le 1) = 1\) by the definition of a CDF.\@
+
+          For \(y \in [0,1]\),
+          \begin{align*}
+            F_{Y}(y) &= P(F(X) \le y)      \\
+                     &= P(X \le F^{-1}(y)) \\
+                     &= F(F^{-1}(y))       \\
+                     &= y
+          \end{align*}
+          since \(F\) is continuous and strictly increasing, and thus invertible. Thus, we have
+          \begin{align*}
+            F_{Y}(y) &= \begin{cases}
+                          0 & \text{for } y < 0,        \\
+                          y & \text{for } y \in [0, 1], \\
+                          1 & \text{for } y > 1,
+                        \end{cases} \\
+                     &= F_{U}(y)
+          \end{align*}
+          Therefore, \(Y = F(X) \sim U(0,1)\).
         \end{proof}
       \end{solution}
 
       \part{}
       \begin{solution}
         \begin{proof}
-          42.
+          Let \(Y = F^{-1}(U)\) with CDF \(F_{Y}\) and let \(F_{U}\) be the CDF of \(U \sim U(0,1)\). Then it is sufficient to show that \(F_{Y} = F\).
+
+          For \(y \in \mathbb{R}\), we have
+          \begin{align*}
+            F_{Y}(y) &= P(F^{-1}(U) \le y)                                                               \\
+                     &= P(U \le F(y))                                                                    \\
+                     &= F_{U}(F(y))                                                                      \\
+                     &= F(y)               & &\because F(y) \in [0,1]\ \text{by the definition of a CDF}
+          \end{align*}
+          Thus, we have that \(Y = F^{-1}(U) \sim X\).
         \end{proof}
       \end{solution}
     \end{parts}
