@@ -27,13 +27,39 @@
       \part{}
       \begin{solution}
         \begin{proof}
-          42.
+          \(\{X_{n}, n \ge 0\}\) has a one-step transition probability matrix
+          \begin{equation*}
+            P = \begin{bmatrix}
+              p & 1-p & 0 & 0   \\
+              0 & 0   & p & 1-p \\
+              p & 1-p & 0 & 0   \\
+              0 & 0   & p & 1-p
+            \end{bmatrix}
+          \end{equation*}
+          Therefore, \(\{X_{n}, n \ge 0\}\) is a Markov chain.
         \end{proof}
       \end{solution}
 
       \part{}
       \begin{solution}
-        42.
+        Let \(\pi=(\pi_{0},\pi_{1},\pi_{2},\pi_{3})\). We have
+        \begin{gather*}
+          \pi = \pi P \\
+          \Rightarrow \begin{cases}
+            \pi_{0} = p\pi_{0} + p\pi_{2}         \\
+            \pi_{1} = (1-p)\pi_{0} + (1-p)\pi_{2} \\
+            \pi_{2} = p\pi_{1} + p\pi_{3}         \\
+            \pi_{3} = (1-p)\pi_{1} + (1-p)\pi_{3} \\
+          \end{cases}
+        \end{gather*}
+        and the additional constraint that
+        \begin{equation*}
+          \pi_{0} + \pi_{1} + \pi_{2} + \pi_{3} = 1
+        \end{equation*}
+        Solving the above system of equations gives
+        \begin{equation*}
+          \boxed{\pi = (p^{2}, p-p^{2}, p-p^{2}, p^{2}-2p+1)}
+        \end{equation*}
       \end{solution}
     \end{parts}
   \end{questions}
