@@ -11,6 +11,7 @@
   assignmentname={Assignment \assignmentnumber},
   studentnumber=20053722,
   name={Bryan Hoang},
+  draft,
   % final,
 ]{
   ltxanswer%
@@ -27,14 +28,67 @@
       \part{}
       \begin{solution}
         \begin{proof}
-          42.
+          \begin{proofpart}
+            (\(\Rightarrow\))
+
+            Suppose \(T\) is a stopping time. Then \(\forall n \ge 0, \exists A_{n} \subset S^{n+1}\) such that
+            \begin{equation*}
+              \{T=n\} = \{(X_{0},X_{1},\dotsc,X_{n}) \in A_{n}\}
+            \end{equation*}
+            and \(A_{n}\) is deterministic. Then let \(C_{n} = \bigcup_{i=0}^{n} A_{n}\). It follows that
+            \begin{align*}
+              \{T \le n\} &= \bigcup_{i=0}^{n} \{T = i\}                                \\
+                          &= \bigcup_{i=0}^{n} \{(X_{0},X_{1},\dotsc,X_{n}) \in A_{i}\} \\
+                          &= \{(X_{0},X_{1},\dotsc,X_{n}) \in C_{n}\}
+            \end{align*}
+            Let \(B_{n} = C_{n}^{\complement}\). Then we have
+            \begin{align*}
+              \{(X_{0},X_{1},\dotsc,X_{n}) \in B_{n}\} &= \{T \le n\}^{\complement} \\
+                                                       &= \{T > n\}
+            \end{align*}
+          \end{proofpart}
+          \begin{proofpart}
+            (\(\Leftarrow\))
+
+            \(\forall n \ge 0, \exists B_{n} \subset S^{n+1}\) such that
+            \begin{equation*}
+              \{T > n\} = \{(X_{0},X_{1},\dotsc,X_{n}) \in B_{n}\}
+            \end{equation*}
+            and \(B_{n}\) is deterministic. Then let \(C_{n} = B_{n}^{\complement}\). It follows that
+            \begin{align*}
+              \{T > n\}^{\complement} &= \{(X_{0},X_{1},\dotsc,X_{n}) \in C_{n}\} \\
+                                      &= \{T \le n\}.
+            \end{align*}
+            Since \(B_{n}\) is deterministic, \(C_{n}\) is deterministic. Therefore, we can deterministically select subsets \(A_{i} \in C_{n}, \forall i \in \{0, \dotsc, n\}\) such that \(C_{n} = \bigcup_{i=0}^{n} A_{i}\) and that
+            \begin{align*}
+              \{T \le n\}           &= \bigcup_{i=0}^{n} \{(X_{0},X_{1},\dotsc,X_{n}) \in A_{i}\} \\
+                                    &= \bigcup_{i=0}^{n} \{T = i\}                                \\
+              \Rightarrow \{T = n\} &= \{(X_{0},X_{1},\dotsc,X_{n}) \in A_{n}\}
+            \end{align*}
+            Therefore, \(T\) is a stopping time.
+          \end{proofpart}
         \end{proof}
       \end{solution}
 
       \part{}
       \begin{solution}
         \begin{proof}
-          42.
+          Suppose that \(T\) and \(S\) are two stopping times. Then \(\forall n \ge 0, \exists A_{n}, B_{n} \subset S^{n+1}\) such that
+          \begin{gather*}
+            \{T=n\} = \{(X_{0},X_{1},\dotsc,X_{n}) \in A_{n}\}
+            \intertext{and}
+            \{S=n\} = \{(X_{0},X_{1},\dotsc,X_{n}) \in B_{n}\}
+          \end{gather*}
+          and that \(A_{n}\) and \(B_{n}\) are deterministic. Then
+          \begin{align*}
+             &\phantomeq \{W = n\}                                                                                                                                                              \\
+             &= \{\min\{T,S\} = n\}                                                                                                                                                             \\
+             &= \bigl(\{T = n\} \cap \{S = n\}\bigr) \cup \bigl(\{T = n\} \cap \{S > n\}\bigr) \cup \bigl(\{T < n\} \cap \{S = n\}\bigr)                                                        \\
+             &= \{(X_{0},\dotsc,X_{n}) \in A_{n} \cap B_{n}\} \cup \{(X_{0},\dotsc,X_{n}) \in A_{n} \cap B_{n}^{\complement}\} \cup \{(X_{0},\dotsc,X_{n}) \in A_{n}^{\complement} \cap B_{n}\} \\
+             &= \{(X_{0},\dotsc,X_{n}) \in (A_{n} \cap B_{n}) \cup (A_{n} \cap B_{n}^{\complement}) \cup (A_{n}^{\complement} \cap B_{n})\}                                                     \\
+             &= \{(X_{0},\dotsc,X_{n}) \in C_{n}\}
+          \end{align*}
+          where \(C_{n} \coloneqq (A_{n} \cap B_{n}) \cup (A_{n} \cap B_{n}^{\complement}) \cup (A_{n}^{\complement} \cap B_{n}) \in S^{n+1}\) is deterministic. Therefore, \(W\) is a stopping time.
         \end{proof}
       \end{solution}
     \end{parts}
