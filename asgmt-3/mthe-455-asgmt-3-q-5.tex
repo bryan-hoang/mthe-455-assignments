@@ -1,0 +1,66 @@
+% Provides macros manipulating strings of tokens.
+\RequirePackage{xstring}
+
+% Store the jobname as a string with category 11 characters.
+\edef\normaljobname{\expandafter\scantokens\expandafter{\jobname\noexpand}}
+\StrBetween{\normaljobname}{asgmt-}{-q}[\assignmentnumber]
+\StrBehind{\normaljobname}{-q-}[\questionnumber]
+
+\documentclass[
+  coursecode={MTHE 455},
+  assignmentname={Assignment \assignmentnumber},
+  studentnumber=20053722,
+  name={Bryan Hoang},
+  draft,
+  % final,
+]{
+  ltxanswer%
+}
+
+\usepackage{bch-style}
+
+\begin{document}
+  \begin{questions}
+    \setcounter{question}{\questionnumber}
+    \addtocounter{question}{-1}
+    \question[7]\
+    \begin{parts}
+      \part{}
+      \begin{solution}
+        \begin{proof}
+          \(\forall n\in\Z\),
+          \begin{equation*}
+            \tilde{P}^{n} = \sum_{k=0}^{n} \binom{n}{k} \alpha^{k} (1-\alpha)^{n-k} P^{k},
+          \end{equation*}
+          where \(P^{0}=I_{N}\). \(\because P\) has positive entries, \(\forall k\in[1,n]\),
+          \begin{equation*}
+            \tilde{P}^{n} \ge \binom{n}{k} \alpha^{k} (1-\alpha)^{n-k} P^{k},
+          \end{equation*}
+          where the inequality is element-wise.
+
+          Then \(\forall i,j\in[1,N]\), the irreducibility of \(P\) implies that \(\exists n_{i,j}\in\Z_{\ge1}:P_{i,j}^{n_{i,j}}>0\).
+
+          Let \(n^{'}=\max_{i,j\in[1,N]}n_{i,j}\). Then \(\forall i,j\in[1,N], \forall n\ge n^{'}, \forall k\in[1,n]\),
+          \begin{align*}
+            \tilde{P}_{i,j}^{n} &\ge \binom{n_{i,j}}{k} \alpha^{n_{i,j}} (1-\alpha)^{n-n_{i,j}} P^{n_{i,j}} \\
+                                &> 0
+          \end{align*}
+          which implies that \(\tilde{P}\) is aperiodic and irreducible.
+        \end{proof}
+      \end{solution}
+
+      \part{}
+      \begin{solution}
+        \begin{proof}
+          Suppose that \(\pi\) is an invariant distribution for \(P\). Then
+          \begin{align*}
+            \pi\tilde{P} &= \pi(\alpha P + (1-\alpha) I_{N})        & &\text{by the definition of \(\tilde{P}\)} \\
+                         &= \alpha(\pi P) + (1 - \alpha)(\pi I_{N})                                              \\
+                         &= \pi                                     & &\because\ \pi P=\pi.
+          \end{align*}
+          Therefore, \(\pi\) is also an invariant distribution for \(\tilde{P}\).
+        \end{proof}
+      \end{solution}
+    \end{parts}
+  \end{questions}
+\end{document}

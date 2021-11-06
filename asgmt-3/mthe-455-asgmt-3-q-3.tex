@@ -1,0 +1,63 @@
+% Provides macros manipulating strings of tokens.
+\RequirePackage{xstring}
+
+% Store the jobname as a string with category 11 characters.
+\edef\normaljobname{\expandafter\scantokens\expandafter{\jobname\noexpand}}
+\StrBetween{\normaljobname}{asgmt-}{-q}[\assignmentnumber]
+\StrBehind{\normaljobname}{-q-}[\questionnumber]
+
+\documentclass[
+  coursecode={MTHE 455},
+  assignmentname={Assignment \assignmentnumber},
+  studentnumber=20053722,
+  name={Bryan Hoang},
+  draft,
+  % final,
+]{
+  ltxanswer%
+}
+
+\usepackage{bch-style}
+
+\begin{document}
+  \begin{questions}
+    \setcounter{question}{\questionnumber}
+    \addtocounter{question}{-1}
+    \question[4]{}
+    \begin{solution}
+      \begin{proof}
+        \begin{proofpart}
+          (Irreducibility)
+
+          Let \(i,j\in S\) where \(S\) is the state space of \(X_{n}:n\ge0\). WLOG, suppose that \(i<j\) and let \(n=j-i>0\). Then
+          \begin{align*}
+            p_{ij}^{(n)} &= P_{i}(X_{n}=j)              \\
+                         &= \prod_{k=i}^{j-1} p_{k,k+1} \\
+                         &> 0.
+          \end{align*}
+          Thus, \(i \to j\). In the other direction, we have
+          \begin{align*}
+            p_{ji}^{(n)} &= P_{j}(X_{n}=i)              \\
+                         &= \prod_{k=i}^{j-1} p_{k+1,k} \\
+                         &> 0.
+          \end{align*}
+          Thus, \(j \to i\). Then for arbitrary \(i,j\), we have that \(i \leftrightarrow j\). Therefore, the Markov chain is irreducible.
+        \end{proofpart}
+        \begin{proofpart}
+          (Transience)
+
+          Suppose that the Markov chain is recurrent. Then
+          \begin{equation*}
+            P_{1}(X_{n}=0\ \text{for some}\ n) = 1.
+          \end{equation*}
+          But the result from Question 3 in Assignment 2 is that
+          \begin{align*}
+            P_{1}(X_{n}\ge1, \forall n\ge0)                &> 0 \\
+            \Rightarrow P_{1}(X_{n}=0\ \text{for some}\ n) &< 1
+          \end{align*}
+          which leads to a contradiction. Therefore, the Markov chain must be transient.
+        \end{proofpart}
+      \end{proof}
+    \end{solution}
+  \end{questions}
+\end{document}

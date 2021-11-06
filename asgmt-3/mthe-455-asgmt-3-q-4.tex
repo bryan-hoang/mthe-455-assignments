@@ -1,0 +1,114 @@
+% Provides macros manipulating strings of tokens.
+\RequirePackage{xstring}
+
+% Store the jobname as a string with category 11 characters.
+\edef\normaljobname{\expandafter\scantokens\expandafter{\jobname\noexpand}}
+\StrBetween{\normaljobname}{asgmt-}{-q}[\assignmentnumber]
+\StrBehind{\normaljobname}{-q-}[\questionnumber]
+
+\documentclass[
+  coursecode={MTHE 455},
+  assignmentname={Assignment \assignmentnumber},
+  studentnumber=20053722,
+  name={Bryan Hoang},
+  draft,
+  % final,
+]{
+  ltxanswer%
+}
+
+\usepackage{bch-style}
+
+\begin{document}
+  \begin{questions}
+    \setcounter{question}{\questionnumber}
+    \addtocounter{question}{-1}
+    \question[7]
+    Let \(S=\{+1,-1\}^{d}\) denote the state space of \(X_{n}\).
+    \begin{parts}
+      \part{}
+      \begin{solution}
+        \begin{proof}
+          For \(s,s^{*}\in S\), let \(k\) be the number of components the two states (co-ordinates) \(s\) and \(s^{*}\) differ by.
+
+          Then by flipping one component at a time, \(\exists \{s_{i}:i\in[0,k]\}\) such that
+          \begin{align*}
+            s_{0} &= s      \\
+            s_{k} &= s^{*},
+          \end{align*}
+          and that for all \(i\in[k-1]\), \(s_{i}\) and \(s_{i+1}\) differ in only one component.
+          Then
+          \begin{align*}
+            P_{s}(X_{k}=s^{*}) &\ge P_{s}(X_{1}=s_{1},\dotsc,X_{k}=s_{k}) \\
+                               &\ge \frac{1}{d^{k}}                       \\
+                               &> 0.
+          \end{align*}
+          Therefore, \(\{X_{n}:n\ge0\}\) is irreducible.
+        \end{proof}
+      \end{solution}
+
+      \part{}
+      \begin{solution}
+        For the state \(\mathbf{i}\in S\), to return to \(\mathbf{i}\), each component of the co-ordinate needs to be flipped an even number of times. Then \(\forall s\in S, \forall n\in\Z_{\ge1}\),
+        \begin{equation*}
+          P_{\mathbf{i}}(X_{2n-1}=s) = 0.
+        \end{equation*}
+        But,
+        \begin{align*}
+          P_{\mathbf{i}}(X_{2}=s) &= \frac{1}{d} \\
+                                  &> 0.
+        \end{align*}
+        Therefore, the period of state \(\mathbf{i}\) is \fbox{2}.
+      \end{solution}
+
+      \part{}
+      \begin{solution}
+        \begin{claim}
+          Let \(\pi_{s}=\frac{1}{2^{d}}, \forall s\in S\) and \(\pi=(\pi_{s})_{s\in S}\). Then \(\pi\) is the unique invariant distribution.
+        \end{claim}
+        \begin{proof}
+          \(\forall s \in S\), let \(s_{-i}\) be the state ahcienved after flipping the \(i\)th component of \(s\) for \(i\in[1,d]\). Then
+          \begin{align*}
+            p_{s_{-i},s} &= \frac{1}{d} & &\forall i\in[1,d]                                 \\
+            \intertext{and}
+            p_{s^{*},s}  &= 0           & &\text{if}\ s^{*} \notin \{s_{-1},\dotsc,s_{-d}\}.
+          \end{align*}
+          Then \(\forall s \in S\),
+          \begin{align*}
+            \sum_{s^{*} \in S} \pi_{s^{*}} p_{s^{*},s} &= \sum_{i=1}^{d} \frac{1}{2^{d}} \cdot \frac{1}{d} \\
+                                                       &= \frac{1}{2^{d}}                                  \\
+                                                       &= \pi_{s}
+          \end{align*}
+          which means that \(\pi\) is an invariant distribution. Since the chain is irreducible by part~(\ref{part@4@1}), the invariant distribution is unique.
+        \end{proof}
+      \end{solution}
+
+      \part{}
+      \begin{solution}
+        Let \(T_{\mathbf{i}}^{(1)}=\inf\{n\in\Z_{\ge1}:X_{n}=\mathbf{i}\}\) be the first passage time to \(\mathbf{i}\). From a corollary discussed in class, we have that
+        \begin{equation*}
+          \pi_{\mathbf{i}} = \frac{1}{\E_{\mathbf{i}}{T_{\mathbf{i}}^{(1)}}}
+        \end{equation*}
+        But since \(\pi_{\mathbf{i}}=\frac{1}{2^{d}}\) from part~(\ref{part@4@3}), we have that
+        \begin{equation*}
+          \E_{\mathbf{i}}{T_{\mathbf{i}}^{(1)}} = 2^{d}.
+        \end{equation*}
+        Therefore, the expected number of steps until the particle returns it \(\mathbf{i}\) is \(\boxed{2^{d}}\).
+      \end{solution}
+
+      \part{}
+      \begin{solution}
+        \(\forall i \in S\), define
+        \begin{equation*}
+          \gamma_{i}^{\mathbf{i}} = \E_{\mathbf{i}}*{\sum_{n=0}^{T_{\mathbf{i}}^{(1)}} \mathbb{1}_{\{X_{n}=i\}}}.
+        \end{equation*}
+        Then by Theorems discussed in class, \(\gamma^{\mathbf{i}}\) is an invariant measure and is identical to \(\pi\) up to scale. Thus,
+        \begin{align*}
+          \gamma_{\mathbf{o}}^{\mathbf{i}} &= \gamma_{\mathbf{i}}^{\mathbf{i}} \\
+                                           &= 1.
+        \end{align*}
+        Therefore, the expected number of visits to \(\mathbf{o}\) until the particle returns to \(\mathbf{i}\) is \(\boxed{1}\).
+      \end{solution}
+    \end{parts}
+  \end{questions}
+\end{document}

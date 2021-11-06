@@ -1,0 +1,55 @@
+% Provides macros manipulating strings of tokens.
+\RequirePackage{xstring}
+
+% Store the jobname as a string with category 11 characters.
+\edef\normaljobname{\expandafter\scantokens\expandafter{\jobname\noexpand}}
+\StrBetween{\normaljobname}{asgmt-}{-q}[\assignmentnumber]
+\StrBehind{\normaljobname}{-q-}[\questionnumber]
+
+\documentclass[
+  coursecode={MTHE 455},
+  assignmentname={Assignment \assignmentnumber},
+  studentnumber=20053722,
+  name={Bryan Hoang},
+  draft,
+  % final,
+]{
+  ltxanswer%
+}
+
+\usepackage{bch-style}
+
+\begin{document}
+  \begin{questions}
+    \setcounter{question}{\questionnumber}
+    \addtocounter{question}{-1}
+    \question[4]{}
+    \begin{solution}
+      \begin{proof}
+        For \(s \in S\), we have
+        \begin{align*}
+          P(Y_{0}=s) &= P(X_{k(0)}=s) & &\text{by the definition of } Y_{n}                                                                \\
+                     &= P(X_{0}=s)                                                                                                         \\
+                     &= \lambda       & &\because \{X_{n}:n\ge0\} \sim \text{Markov}(\lambda,P).\numberthis\label{eq:initial-distribution}
+        \end{align*}
+        Therefore, the initial distribution of \(\{Y_{n}\}_{n\ge0}\) is \(\lambda\).
+
+        Now for \(i,j\in S\), consider
+        \begin{align*}
+          P(Y_{n+1}=j|Y_{n}=i) &= P(X_{k(n+1)}=j|X_{k(n)}=i) & &\text{by the definition of } Y_{n} \\
+                               &= P(X_{kn+k}=j|X_{kn}=i)
+        \end{align*}
+        Then by the Markov Property, conditional on \(\{X_{kn}=i\}\),
+        \begin{equation*}
+          \{X_{kn+k}\}_{n\ge0}=\{\tilde{X_{k}}\}_{k\ge0}\sim\text{Markov}(\delta_{i},P).
+        \end{equation*}
+        Thus, by the CK equation,
+        \begin{align*}
+          P(Y_{n+1}=j|Y_{n}=i) &= P(\tilde{X_{k}}|X_{0}=i)                           \\
+                               &= P_{ij}^{k}.\numberthis\label{eq:transition-matrix}
+        \end{align*}
+        Then by~\eqref{eq:initial-distribution} and~\eqref{eq:transition-matrix}, we have proven that \((Y_{n})_{n\ge0}\sim\text{Markov}(\lambda,P^{k})\).
+      \end{proof}
+    \end{solution}
+  \end{questions}
+\end{document}
