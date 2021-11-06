@@ -1,0 +1,39 @@
+% Provides macros manipulating strings of tokens.
+\RequirePackage{xstring}
+
+% Store the jobname as a string with category 11 characters.
+\edef\normaljobname{\expandafter\scantokens\expandafter{\jobname\noexpand}}
+\StrBetween{\normaljobname}{asgmt-}{-q}[\assignmentnumber]
+\StrBehind{\normaljobname}{-q-}[\questionnumber]
+
+\documentclass[
+  coursecode={MTHE 455},
+  assignmentname={Assignment \assignmentnumber},
+  studentnumber=20053722,
+  name={Bryan Hoang},
+  draft,
+  % final,
+]{
+  ltxanswer%
+}
+
+\usepackage{bch-style}
+
+\begin{document}
+  \begin{questions}
+    \setcounter{question}{\questionnumber}
+    \addtocounter{question}{-1}
+    \question[5]\
+    \begin{parts}
+      \part{}
+      \begin{solution}
+        42.
+      \end{solution}
+
+      \part{}
+      \begin{solution}
+        42.
+      \end{solution}
+    \end{parts}
+  \end{questions}
+\end{document}
