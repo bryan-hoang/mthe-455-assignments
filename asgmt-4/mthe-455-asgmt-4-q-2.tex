@@ -27,12 +27,64 @@
     \begin{parts}
       \part{}
       \begin{solution}
-        42.
+        \begin{claim}
+          The invariant distribution of \(P\) is
+          \begin{equation*}
+            \pi = \Bigl(\underbrace{\frac{1}{M+1},\dotsc,\frac{1}{M+1}}_{M+1\ \text{components}}\Bigr).
+          \end{equation*}
+        \end{claim}
+        \begin{proof}
+          The invariant distribution should satisfy
+          \begin{align*}
+            \pi                    &= \pi P                                                                                          \\
+            \pi_{j}                &= \sum_{i \in S} \pi_{i} P_{ij}, \quad \forall j \in S\numberthis\label{eq:invariant-transition} \\
+            \intertext{and}
+            \sum_{i \in S} \pi_{i} &= 1.\numberthis\label{eq:invariant-sum}
+          \end{align*}
+          Then starting with the RHS of~\eqref{eq:invariant-transition}, we have that \(\forall j \in S\),
+          \begin{align*}
+            \sum_{i \in S} \pi_{i} P_{ij} &= \frac{1}{M+1} \sum_{i \in S} P_{ij}                                                   \\
+                                          &= \frac{1}{M+1}                       & &\because P\ \text{is  right stochastic matrix} \\
+                                          &= \pi_{j}.
+          \end{align*}
+          Starting with the LHS of~\eqref{eq:invariant-sum} gives
+          \begin{align*}
+            \sum_{i \in S} \pi_{i} &= \sum_{i \in S} \frac{1}{M+1} \\
+                                   &= \frac{1}{M+1} (M+1)          \\
+                                   &= 1.
+          \end{align*}
+          Since \(P\) is also irreducible, we can conclude that \(\pi\) is the unique invariant distribution of \(P\).
+        \end{proof}
       \end{solution}
 
       \part{}
       \begin{solution}
-        42.
+        Let \(Y_{n}= X_{n} \bmod 11\). Then \((Y_{n})_{\Z_{\ge 0}}\) is a Markov chain with the state space \(S=\{0,1,\dotsc,10\}\) and transition matrix
+        \begin{equation*}
+          P = \begin{bmatrix}
+            0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & 0           & 0           & 0           \\[1ex]
+            0           & 0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & 0           & 0           \\[1ex]
+            0           & 0           & 0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & 0           \\[1ex]
+            0           & 0           & 0           & 0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           \\[1ex]
+            0           & 0           & 0           & 0           & 0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} \\[1ex]
+            \frac{1}{6} & 0           & 0           & 0           & 0           & 0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} \\[1ex]
+            \frac{1}{6} & \frac{1}{6} & 0           & 0           & 0           & 0           & 0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} \\[1ex]
+            \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & 0           & 0           & 0           & 0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} \\[1ex]
+            \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & 0           & 0           & 0           & 0           & \frac{1}{6} & \frac{1}{6} \\[1ex]
+            \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & 0           & 0           & 0           & 0           & \frac{1}{6} \\[1ex]
+            \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & 0           & 0           & 0           & 0
+          \end{bmatrix}
+        \end{equation*}
+        which is an irreducible, aperiodic, and right stochastic matrix. Then by part~(\ref{part@2@1}), with \(M=10\), the invariant distribution of \(P\) is
+        \begin{equation*}
+          \pi = \Bigl(\underbrace{\frac{1}{11},\dotsc,\frac{1}{11}}_{11\ \text{components}}\Bigr).
+        \end{equation*}
+        Since the matrix is irreducible and aperiodic, the convergence to equilibrium theorem says that
+        \begin{align*}
+          \lim_{n \to \infty} P(X_{n}\ \text{is a multiple of}\ 11) &= \lim_{n \to \infty} P(Y_{n}=0) \\
+                                                                    &= \pi_{0}                        \\
+          \alignedbox{                                              &= \frac{1}{11}}.
+        \end{align*}
       \end{solution}
     \end{parts}
   \end{questions}

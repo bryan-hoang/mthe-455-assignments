@@ -25,7 +25,51 @@
     \addtocounter{question}{-1}
     \question[5]{}
     \begin{solution}
-      42.
+      \begin{claim}
+        \begin{equation*}
+          \lim_{n \to \infty} p_{n} = \frac{\alpha_{1}\alpha_{2}}{\alpha_{2}+\alpha_{3}}
+        \end{equation*}
+      \end{claim}
+      \begin{proof}
+        Let \(X_{n}\) denote the ordering of the books on day \(n\) with state space
+        \begin{equation*}
+          S=\{123, 132, 213, 231, 312, 321\}.
+        \end{equation*}
+        Then \((X_{n})_{\Z_{\ge 0}}\) forms a Markov chain. Then the transition matrix is
+        \begin{equation*}
+          P = \begin{bmatrix}
+            \alpha_{1} & 0          & \alpha_{2} & 0          & \alpha_{3} & 0          \\
+            0          & \alpha_{1} & \alpha_{2} & 0          & \alpha_{3} & 0          \\
+            \alpha_{1} & 0          & \alpha_{2} & 0          & 0          & \alpha_{3} \\
+            \alpha_{1} & 0          & 0          & \alpha_{2} & 0          & \alpha_{3} \\
+            0          & \alpha_{1} & 0          & \alpha_{2} & \alpha_{3} & 0          \\
+            0          & \alpha_{1} & 0          & \alpha_{2} & 0          & \alpha_{3} \\
+          \end{bmatrix}
+        \end{equation*}
+        It is clear that \(P\) is irreducible.
+
+        The state \(123 \in S\) is aperiodic since \(P_{123,123}^{n} = \alpha_{1}^{n} > 0, \forall n \in \Z_{\ge 1}\). Given that and the fact that \(P\) is irreducible, we can see that \(P\) is also aperiodic.
+
+        Since \(P\) is irreducible and aperiodic, then the theorem on convergence to equilibrium tells us that
+        \begin{equation*}
+          \lim_{n \to \infty} p_{n} = \pi_{123}
+        \end{equation*}
+        where \(\pi_{123}\) is a component of the unique invariant distribution of \(P\).
+
+        The unique invariant distribution of \(P\) satisfies
+        \begin{equation*}
+          \pi = \pi P
+        \end{equation*}
+        which solving gives
+        \begin{equation*}
+          \pi = \biggl(\frac{\alpha_{1}\alpha_{2}}{\alpha_{2}+\alpha_{3}},\frac{\alpha_{1}\alpha_{3}}{\alpha_{2}+\alpha_{3}},\frac{\alpha_{1}\alpha_{2}}{\alpha_{1}+\alpha_{3}},\frac{\alpha_{2}\alpha_{3}}{\alpha_{1}+\alpha_{3}},\frac{\alpha_{1}\alpha_{2}}{\alpha_{1}+\alpha_{2}},\frac{\alpha_{2}\alpha_{3}}{\alpha_{1}+\alpha_{2}}\biggr)
+        \end{equation*}
+        Therefore,
+        \begin{align*}
+          \lim_{n \to \infty} p_{n} &= \pi_{123}                                           \\
+          \alignedbox{              &= \frac{\alpha_{1}\alpha_{2}}{\alpha_{2}+\alpha_{3}}}
+        \end{align*}
+      \end{proof}
     \end{solution}
   \end{questions}
 \end{document}
