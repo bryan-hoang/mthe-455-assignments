@@ -1,3 +1,20 @@
 {
+  "latex-workshop.latex.tools": [
+    {
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-lualatex",
+        // For `minted`.
+        "-shell-escape",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ],
+      "command": "latexmk",
+      "env": {},
+      "name": "lualatexmk"
+    }
+  ],
   "latex-workshop.view.pdf.tab.editorGroup": "below"
 }

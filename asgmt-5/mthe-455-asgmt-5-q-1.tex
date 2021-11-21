@@ -20,14 +20,33 @@
 }
 
 \usepackage{bch-style}
+\usepackage[final]{minted}
+\usepackage{cascadia-code}
+
+\usemintedstyle{default}
 
 \begin{document}
   \begin{questions}
     \setcounter{question}{\questionnumber}
     \addtocounter{question}{-1}
-    \question[0]{}
+    \question[6]{}
     \begin{solution}
-      42.
+      \begin{table}
+        \begin{tabular}{lrrr}
+          \toprule
+          \(\mathcal{V}(d,\beta)\) & \(\beta=0.4\) & \(\beta=0.8\) & \(\beta=1.2\) \\
+          \midrule
+          \(d=60\)                 & 35.261        & 40.701        & 45.341        \\
+          \(d=120\)                & 71.188        & 82.062        & 91.594        \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+      Code:
+      \inputminted[
+        linenos,
+        frame=single,
+        mathescape,
+      ]{R}{src/mthe-455-asgmt-5-q-1.R}
     \end{solution}
   \end{questions}
 \end{document}
