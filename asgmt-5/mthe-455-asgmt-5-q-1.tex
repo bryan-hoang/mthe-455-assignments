@@ -21,9 +21,14 @@
 
 \usepackage{bch-style}
 \usepackage[final]{minted}
-\usepackage{cascadia-code}
+\usepackage{fontspec}
+\usepackage{lstfiracode}
 
-\usemintedstyle{default}
+\setmonofont{FiraCode}[
+  Contextuals=Alternate,
+]
+
+\ActivateVerbatimLigatures{}
 
 \begin{document}
   \begin{questions}
@@ -34,16 +39,16 @@
       \begin{table}
         \begin{tabular}{lrrr}
           \toprule
-          \(\mathcal{V}(d,\beta)\) & \(\beta=0.4\) & \(\beta=0.8\) & \(\beta=1.2\) \\
+          \(\mathcal{V}(d,\beta)\) & \(\beta = 0.4\) & \(\beta = 0.8\) & \(\beta = 1.2\) \\
           \midrule
-          \(d=60\)                 & 35.261        & 40.701        & 45.341        \\
-          \(d=120\)                & 71.188        & 82.062        & 91.594        \\
+          \(d = 60\)               & 35.261          & 40.701          & 45.341          \\
+          \(d = 120\)              & 71.188          & 82.062          & 91.594          \\
           \bottomrule
         \end{tabular}
       \end{table}
       Code:
       \inputminted[
-        linenos,
+        fontsize=\small,
         frame=single,
         mathescape,
       ]{R}{src/mthe-455-asgmt-5-q-1.R}

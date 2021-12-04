@@ -30,13 +30,52 @@
       \part{}
       \begin{solution}
         \begin{proof}
-          42.
+          We're looking to prove that
+          \begin{equation*}
+            \lim_{h \downarrow 0} \frac{\P{S < h, S + T > h}}{h} = \lambda.
+          \end{equation*}
+          First, let's compute \(\P{S < h, S + T > h}\) directly. From the question, we know that \(S \sim \Exp(\lambda)\) and \(T \sim \Exp(\mu)\). Then
+          \begin{align*}
+            \P{S < h, S + T > h} &= \int_{s < h} \int_{s + t > h} \lambda e^{-\lambda s} \mu e^{-\mu t} \dl3t \dl3s                                          \\
+                                 &= \int_{s < h} \int_{t > h - s} \lambda e^{-\lambda s} \mu e^{-\mu t} \dl3t \dl3s                                          \\
+                                 &= \int_{s < h} \lambda e^{-\lambda s} \int_{h - s}^{\infty} \mu e^{-\mu t} \dl3t \dl3s                                     \\
+                                 &= \int_{s < h} \lambda e^{-\lambda s} e^{-\mu(h - s)} \dl3s                                                                \\
+                                 &= \begin{cases}
+                                      \lambda \frac{e^{-\mu h} - e^{-\lambda h}}{\lambda - \mu} &\text{if}\ \lambda \ne \mu, \\
+                                      \lambda h e^{-\lambda h}                                  &\text{if}\ \lambda = \mu.
+                                    \end{cases}
+          \end{align*}
+          If \(\lambda = \mu\), then
+          \begin{align*}
+            \lim_{h \downarrow 0} \frac{\P{S < h, S + T > h}}{h} &= \lim_{h \downarrow 0} \lambda e^{-\lambda h} \\
+                                                                 &= \lambda.
+          \end{align*}
+          If \(\lambda \ne \mu\), then
+          \begin{align*}
+            \lim_{h \downarrow 0} \frac{\P{S < h, S + T > h}}{h} &= \lim_{h \downarrow 0} \lambda \frac{e^{-\mu h} - e^{-\lambda h}}{(\lambda - \mu)h}                                                   \\
+                                                                 &= \frac{\lambda}{\lambda - \mu} \lim_{h \downarrow 0} \frac{e^{-\mu h} - e^{-\lambda h}}{h}                                            \\
+                                                                 &= \frac{\lambda}{\lambda - \mu} \lim_{h \downarrow 0} \frac{-\mu e^{-\mu h} + \lambda e^{-\lambda h}}{1} & &\text{by L'Hopital's rule} \\
+                                                                 &= \frac{\lambda}{\lambda - \mu} \cdot (\lambda - \mu)                                                                                  \\
+                                                                 &= \lambda.
+          \end{align*}
+          \(\therefore \P{S < h, S + T > h} = \lambda h + o(h)\).
         \end{proof}
       \end{solution}
 
+      \newpage
       \part{}
       \begin{solution}
-        42.
+        Fix \(z \in R\) and let \(x \in \R_{>0}\). Then
+        \begin{align*}
+                       &\phantomeq\P{X > x | Z < z, Z + S > z}                                                                                          \\
+                       &= \P{S - (z - Z) > x | Z < z, Z + S > z}       & &\text{by the definition of \(X\)}                                             \\
+                       &= \P{S > x + (z - Z) | S > (z - Z), z - Z > 0}                                                                                  \\
+                       &= \P{S > x }                                   & &\text{by the memoryless property of \(S,\ \forall s = z - Z, x \in \R_{>0}\)} \\
+                       &= 1 - \P{S \le x }                                                                                                              \\
+                       &= 1 - F(x)                                     & &\text{where \(F\) is the cumulative distribution function of \(S\)}           \\
+                       &= 1 - (1 - e^{-\lambda x})                                                                                                      \\
+          \alignedbox{ &= e^{-\lambda x}}.
+        \end{align*}
       \end{solution}
     \end{parts}
   \end{questions}

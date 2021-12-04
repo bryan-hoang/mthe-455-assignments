@@ -27,7 +27,58 @@
     \addtocounter{question}{-1}
     \question[6]{}
     \begin{solution}
-      42.
+      To find the semigroup of \(Q\) (\(P(t)\)), first note that because of symmetry, let
+      \begin{equation*}
+        f(t) = \P_{i}{X_{t} = i}, \ \forall i \in I.
+      \end{equation*}
+      Then for \(i \ne j\) and since \(\forall i \in I, t \in \R_{>0}, \sum_{j \in I} P_{i,j}(t) = 1\),
+      \begin{equation*}
+        \P_{i}{X_{t} = j} = \frac{1 - f(t)}{2}.
+      \end{equation*}
+      Thus, the semigroup of \(Q\) is
+      \begin{equation*}
+        P(t) = \begin{bmatrix}
+          f(t)             & \frac{1-f(t)}{2} & \frac{1-f(t)}{2} \\
+          \frac{1-f(t)}{2} & f(t)             & \frac{1-f(t)}{2} \\
+          \frac{1-f(t)}{2} & \frac{1-f(t)}{2} & f(t)
+        \end{bmatrix}.
+      \end{equation*}
+      Since \(\forall i \ne j,\ Q_{i,j} = 1\) and \(\forall i \in I,\ \sum_{j \in I} Q_{i,j} = 0\), the \(Q\)-matrix is
+      \begin{equation*}
+        Q = \begin{bmatrix}
+          -2 & 1  & 1  \\
+          1  & -2 & 1  \\
+          1  & 1  & -2
+        \end{bmatrix}.
+      \end{equation*}
+      To solve for \(f(t)\), we can use the backward equation, which states that
+      \begin{equation}\label{eq:backward}
+        P'(t) = QP(t);\quad P(0) = I_{3},
+      \end{equation}
+      where \(I_{3}\) is the identity matrix of size \(3\). Then~\eqref{eq:backward} gives
+      \begin{equation}\label{eq:backward-implication}
+        f'(t) = -2f(t) + \frac{1 - f(t)}{2} + \frac{1 - f(t)}{2};\quad f(0) = 1.
+      \end{equation}
+      Then
+      \begin{align*}
+        f'(t)                                         &= -3f(t) + 1                                                      \\
+        \Rightarrow \biggl(f(t) - \frac{1}{3}\biggr)' &= -3\biggl(f(t) - \frac{1}{3}\biggr).\numberthis\label{eq:diffeq}
+      \end{align*}
+      Solving~\eqref{eq:diffeq} for \(f(t)\) gives
+      \begin{equation*}
+        f(t) = \frac{1}{3} + Ce^{-3t}
+      \end{equation*}
+      where \(C \in \R\) is an unknown constant. Since by~\eqref{eq:backward-implication}, \(f(0) = 1\), then \(C = \frac{2}{3}\). Therefore,
+      \begin{equation*}
+        \renewcommand{\arraystretch}{1.5}
+        \boxed{
+          P(t) = \begin{bmatrix*}[l]
+            \frac{1}{3} (1 + 2e^{-3t}) & \frac{1}{3} (1 - e^{-3t})  & \frac{1}{3} (1 - e^{-3t})  \\
+            \frac{1}{3} (1 - e^{-3t})  & \frac{1}{3} (1 + 2e^{-3t}) & \frac{1}{3} (1 - e^{-3t})  \\
+            \frac{1}{3} (1 - e^{-3t})  & \frac{1}{3} (1 - e^{-3t})  & \frac{1}{3} (1 + 2e^{-3t})
+          \end{bmatrix*}
+        }.
+      \end{equation*}
     \end{solution}
   \end{questions}
 \end{document}

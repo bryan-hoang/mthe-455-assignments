@@ -2,7 +2,6 @@
 if (!require(progress)) {
   install.packages("progress")
 }
-
 library(progress)
 
 #' $m$
@@ -23,13 +22,22 @@ m <- function(x) {
 
   # Vector representing the indicator on the equality of ajacent elements in
   # `x`.
-  smoothness_indicator <- rep(0, d - 1)
+  summation <- 0
 
   for (i in seq_len(d - 1)) {
-    smoothness_indicator[i] <- x[i] == x[i + 1]
+    summation <- summation + (x[i] == x[i + 1])
   }
 
-  return(sum(smoothness_indicator))
+  return(summation)
+}
+
+
+
+#' $r$
+#'
+#' The acceptance probability of the Metropolis-Hastings algorithm.
+r <- function(beta, m_0, m_1) {
+  return(exp(beta * (m_1 - m_0)))
 }
 
 #' $\mathcal{V}$
@@ -50,14 +58,17 @@ m <- function(x) {
 #' @examples
 #' print(v(10, 1.2)) # Prints approximately 6.916
 #' print(v(12, 0.8)) # Prints approximately 7.590
-v <- function(d, beta, burnin_value = NULL) {
+v <- function(d, beta, iteration_count = NULL, burnin_value = NULL) {
   # Default value based on the assignment's recommendations.
+  if (is.null(iteration_count)) {
+    iteration_count <- 6000
+  }
+
   if (is.null(burnin_value)) {
     burnin_value <- 3000
   }
 
   summation <- 0
-  iteration_count <- 2 * burnin_value
   pb <- progress_bar$new(
     total = iteration_count,
     format = sprintf("Computing V(%d, %.1f) - [:bar] :percent", d, beta)
@@ -83,10 +94,7 @@ v <- function(d, beta, burnin_value = NULL) {
       m_1 <- m(x_next)
 
       # Calculate the acceptance probability.
-      #
-      # NOTE: `min`` is unecessary here for the implementation, but helps with
-      # readability when referencing the lecture notes.
-      p_accept <- min(1, exp(beta * (m_1 - m_0)))
+      p_accept <- r(beta, m_0, m_1)
 
       # Decide if we want to accept the proposal. If not, keep the current
       # state for the next proposal.
@@ -108,17 +116,19 @@ main <- function() {
   # Combinations of parameters from assignment.
   dimensions <- c(60, 120)
   betas <- c(0.4, 0.8, 1.2)
+  iteration_count <- 6000
+  burnin_value <- 3000
 
   for (i in seq_len(length(dimensions))) {
     for (j in seq_len(length(betas))) {
-      print(
-        sprintf(
-          "V(%d, %.1f) = %.3f",
-          dimensions[i],
-          betas[j],
-          v(dimensions[i], betas[j])
-        )
+      results_to_print <- sprintf(
+        "V(%d, %.1f) = %.3f",
+        dimensions[i],
+        betas[j],
+        v(dimensions[i], betas[j], iteration_count, burnin_value)
       )
+
+      print(results_to_print)
     }
   }
 }

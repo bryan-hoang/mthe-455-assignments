@@ -35,9 +35,9 @@
 ## Build tool auxiliary files:
 *.fdb_latexmk
 *.synctex
-*.synctex(busy)
+*.synctex\(busy\)
 *.synctex.gz
-*.synctex.gz(busy)
+*.synctex.gz\(busy\)
 *.pdfsync
 
 ## Build tool directories for auxiliary files
@@ -274,3 +274,14 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/

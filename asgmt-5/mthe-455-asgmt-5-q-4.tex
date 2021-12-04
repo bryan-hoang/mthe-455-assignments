@@ -29,12 +29,39 @@
     \begin{parts}
       \part{}
       \begin{solution}
-        42.
+        The continuous-time Markov chain \(\{X_{t} : t \ge 0\}\) has the state space \(I = \Z_{\ge 0} = \{0, 1, 2, \ldots\}\) with an associated \(Q\)-matrix defined by
+        \begin{equation*}
+          Q = \begin{cases}
+            q_{0,1} = \lambda,\ q_{0,0} = -\lambda,                                                          \\
+            q_{i,i-1} = i\mu,\ q_{i,i+1} = \lambda,\ q_{i,i} = -(i\mu + \lambda), &\forall i \in \Z_{\ge 1}, \\
+            0,                                                                    &\text{otherwise.}
+          \end{cases}
+        \end{equation*}
       \end{solution}
 
       \part{}
       \begin{solution}
-        42.
+        To find the invariant distribution, \(\pi\), let's solve the detailed balance equation:
+        \begin{align*}
+          \pi_{i}q_{i,j}     &= \pi_{j}q_{j,i}                                                   & &\forall i,j \in I                                               \\
+          \pi_{i-1}q_{i-1,i} &= \pi_{i}q_{i,i-1}                                                 & &\forall i \in \Z_{\ge 1}                                        \\
+          \pi_{i-1}\lambda   &= \pi_{i}i\mu                                                      & &\forall i \in \Z_{\ge 1}                                        \\
+          \pi_{i}            &= \frac{\lambda}{\mu} \cdot \frac{1}{i} \pi_{i-1}                  & &\forall i \in \Z_{\ge 1}                                        \\
+          \pi_{i}            &= \biggl(\frac{\lambda}{\mu}\biggr)^{2} \frac{1}{i(i-1)} \pi_{i-2} & &\forall i \in \Z_{\ge 1}                                        \\
+                             &\vdots                                                                                                                                \\
+          \pi_{i}            &= \biggl(\frac{\lambda}{\mu}\biggr)^{i} \frac{1}{i!} \pi_{0}       & &\forall i \in \Z_{\ge 1}.\numberthis\label{eq:detailed-balance}
+        \end{align*}
+        To solve for \(\pi_{0}\), we know that \(\sum_{i=0}^{\infty} \pi_{i}=1\). Then summing~\eqref{eq:detailed-balance} over all \(i \in \Z_{\ge0}\) yields
+        \begin{align*}
+          \sum_{i=0}^{\infty} \pi_{i}                                                    &= \sum_{i=0}^{\infty} \biggl(\frac{\lambda}{\mu}\biggr)^{i} \frac{1}{i!} \pi_{0} \\
+          \pi_{0} \sum_{i=0}^{\infty} \biggl(\frac{\lambda}{\mu}\biggr)^{i} \frac{1}{i!} &= 1                                                                              \\
+          \pi_{0}                                                                        &= \frac{1}{\sum_{i=0}^{\infty} \bigl(\frac{\lambda}{\mu}\bigr)^{i} \frac{1}{i!}} \\
+          \pi_{0}                                                                        &= e^{-\frac{\lambda}{\mu}}.
+        \end{align*}
+        Thus, \(\forall i \in \Z_{\ge0}\),
+        \begin{equation*}
+          \boxed{\pi_{i} = \frac{\bigl(\frac{\lambda}{\mu}\bigr)^{i}}{i!}e^{-\frac{\lambda}{\mu}}}.
+        \end{equation*}
       \end{solution}
     \end{parts}
   \end{questions}
